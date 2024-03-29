@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 mt-2">
+            <h6 class="text-center" style="font-weight: 500; color: #fff;">BROWSE TOPICS</h6 class="text-center">
+            <div class="card" style="background-color: #3f4156;">
+                
+                <div class="card-body" >
+                    <div class="row">
+                        <div class="col" style="color: #fff;">
+                            ALL
+                        </div>
+                        <div class="col text-right">
+                            <span style="color: #fff;" class="badge text-bg-secondary">{{ topics.all.count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'base/topic_component.html' %}
+        </div>
+
+        <div class="col-lg-6 col-md-6 mt-2">
+            <a class="btn btn-outline-secondary" style="color: #fff; color:#fff" href="{% url 'create_rooms' %}">Create Room</a>
+            
+            {% include 'base/room_component.html' %}
+        </div>
+
+        <!-- Third column div moved inside the row div -->
+        <div class="col-lg-3 col-md-3 mt-2">
+            <div class="card p-2" style="background-color: #3f4156;">
+                <div class="card-header" style="background-color: #696d97;">
+                   <h6 class="text-center" style="font-weight: 500; color: #fff;" >RECENT ACTIVITIES</h6 class="text-center">
+                </div>
+
+                {% include 'base/activity_component.html' %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

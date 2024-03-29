@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <div class="card" style=" background-color: #696d97;" >
+                <div class="card-header" style="background-color: #696d97;" >
+                <a href="{% url 'home' %}" style="text-decoration: none; color:#fff;"><i class="fa-solid fa-arrow-left"></i></a>
+                <span style="color: #fff;">{{ room.name }}</span>
+                </div>
+                <div class="card-body" style="background-color: #3f4156;" >
+                  <h5 class="card-title" style="color: #fff;" >{{ room.name }}</h5>
+                  <p class="card-text" style="color: #fff;" >{{ room.created | timesince}} ago</p>
+                  <h6 style="color: #fff;" >Hosted by</h6>
+                  <img src="{{ room.host.avatar.url }}" style="width: 50px; height: 50px; " style="color: #fff;" class="rounded me-2" alt="..."> <span  style="color: #71c6dd;">@{{ room.host.username }}</span>
+                  <div class="card mt-3 mb-3" style=" background-color: #696d97;">
+                      <div class="card-body" style="background-color: #2d2d39;" >
+                    {% for message in messages %}
+                      <p class="card-title"><strong class=""style="color: #71c6dd;" ><span> <img src="{{ message.user.avatar.url }}"  style="width: 50px; height: 50px; " class="rounded me-2" alt="..."> </span  style="color: #71c6dd;" > @{{ message.user.username}}</strong>   <span style="color: #fff" >   Sent at {{ message.created|date:"F j, Y g:i A" }}
+                      </span></p>
+                      <p class="card-text" style="color: #fff;" >{{ message.body }}</p>
+                      <hr style="color: #fff;" >
+                    {% endfor %}
+                    </div>
+                    <form method="POST" action="" style="background-color: #696d97;" >
+                        {% csrf_token %}
+                      <input type="search" style="background-color: #696d97; color:#fff;"  class="form-control" name="message" placeholder="write your message">
+                      </form>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            
+            <div class="card" style="background-color: #696d97;">
+                <h5 class="card-header" style="background-color: #696d97; color: #fff;" >PARTICIPANTS</h5>
+                <div class="card-body" style="background-color: #3f4156;">
+                    {% for participant in participants %}
+                  <p class="card-title"><span> <img src="{{ participant.avatar.url }}" style="width: 50px; height:50px; "  class="rounded me-2" alt="..."> </span>  <a href="" style="color: #71c6dd;" >@{{ participant.username}}</a></p>
+                  {% endfor %}
+                </div>
+              </div>
+        </div>
+    </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

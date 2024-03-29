@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+
+Delete Room
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you wanna delete "{{ room.name }}"?</p>
+        <button class="btn btn-danger">delete room</button>
+        <a href="{% url 'home' %}" class="btn btn-success">go back</a>
+    </form>
+
+</div>
+
+{% endblock %}
+
+

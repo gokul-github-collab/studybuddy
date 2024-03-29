@@ -1,0 +1,13 @@
+
+
+{% for topic in topics %}
+<div class="card mt-2" style="background-color: #3f4156;">
+    <div class="card-body">
+
+         <a href="{% url 'home' %}?q={{topic.name}}" style="color: #71c6dd;">{{ topic.name }}</a>
+        </div>
+    </div>
+    
+    {% endfor %}
+
+

@@ -1,0 +1,70 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 mt-2">
+            <h6 class="text-center" style="font-weight: 500; color: #fff;">BROWSE TOPICS</h6 class="text-center">
+            <div class="card" style="background-color: #3f4156;">
+                
+                <div class="card-body" >
+                    <div class="row">
+                        <div class="col" style="color: #fff;">
+                            ALL
+                        </div>
+                        <div class="col text-right">
+                            <span style="color: #fff;" class="badge text-bg-secondary">{{ topics.all.count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'base/topic_component.html' %}
+        </div>
+
+        <div class="col-lg-6 col-md-6 mt-2 ">
+            <div class="text-center">
+
+                <img src="{{ ruser.avatar.url }}" style="max-width: 150px; max-height: 150px;"  class="img-thumbnail" alt="Circle Image">
+   
+                <h5 style="color: #fff;">{{ ruser.name }}</h5>
+                <h6 style="color: #71c6dd;">@{{ ruser.username }}</h6>
+                {% if request.user == ruser %}
+                    <a href="{% url 'edit_profile' ruser.id  %}"  style="color:#fff" class="btn btn-outline-secondary">Edit Profile</a>
+                {% endif %}
+            </div>
+            
+            <div>
+                <h5 style="color: #fff;">About</h5>
+                <p>
+                    {{user.bio}}
+                </p>
+
+                <h5 style="color: #fff;">STUDY ROOM {{user.name}} PARTICIPATED IN</h5>
+                {% include 'base/room_component.html' %}
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-3 mt-2">
+
+            <div class="card p-2" style="background-color: #3f4156;">
+                <div class="card-header">
+                    <h6 class="text-center" style="color: #fff;">RECENT ACTIVITIES</h6>
+                </div>
+
+                {% include 'base/activity_component.html' %}
+
+            </div>
+    
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

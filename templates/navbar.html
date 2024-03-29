@@ -1,0 +1,38 @@
+
+    <div class="container-fluid" style="background-color:  #3f4156;">
+        <nav class="navbar navbar-expand-lg " style="background-color:  #3f4156;">
+            <div class="container p-5" style="background-color: #3f4156;">
+                <a class="navbar-brand" href="{% url 'home' %}" style="font-family: Ubuntu, sans-serif; font-weight: 800; font-size: 2rem; color: #fff;">STUDYBUDDY</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+                    <form class="d-flex"  role="search" style="width: 350px; height:50px; " >
+                        <input class="form-control me-2"  name="q" type="search" placeholder="Search for room" aria-label="Search" style="background-color: #E8F0FE;" >
+                    </form>
+                    {% if request.user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% url 'user_profile' request.user.id %}" style="color: #fff;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @{{request.user.username}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'user_profile' request.user.id %}">settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <div   class="ms-auto">
+                        <a class="nav-link" style="color: #fff;  " style="text-decoration: none;" href="{% url 'login' %}">Login</a>
+                    </div>
+    
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+

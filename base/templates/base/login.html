@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+
+{% block title %}
+
+Login
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container mt-3" >
+  <div class="card" style="background-color: #696d97;">
+    <div class="card-header"  style="background-color: #696d97;" >
+      <h5 class="text-center" style="color: #fff;" >LOGIN</h5>
+    </div>
+    <div class="card-body " style="background-color: #3f4156;" >
+      <form method="POST" >
+          {% csrf_token %}
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label style="color: #fff;"  class="form-label" for="form2Example1">Email address</label>
+            <input type="email" style="background-color: #3f4156; color: #fff " name="email"  id="form2Example1" class="form-control" />
+          </div>
+        
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label style="color: #fff;"  class="form-label" for="form2Example2">Password</label>
+            <input type="password" style="background-color: #3f4156; color: #fff " name="password" id="form2Example2" class="form-control" />
+          </div>
+        
+          <!-- 2 column grid layout for inline styling -->
+          <p class="" style="color: #fff;" >Don't have an account! register <a href="{% url 'register' %}" style="color: #71c6dd;" >here</a>!</p>
+          <!-- Submit button -->
+          <button type="submit" style="color: #fff;"  class="btn btn-outline-secondary btn-block mb-4">Sign in</button>
+        
+      
+        </form>
+
+    </div>
+  </div>
+    
+</div>
+
+{% endblock %}

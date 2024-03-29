@@ -1,0 +1,24 @@
+{% for room in rooms %}
+
+<div class="card mt-2 mb-2  shadow shadow-lg" style="background-color:#3f4156;">
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <img src="{{ room.host.avatar.url }}" style="width: 50px; height: 50px;"  class="rounded me-2" alt="...">
+        <span class="text text-bold"><strong style="color: #71c6dd;">Host <a href="{% url  'user_profile' room.host.id %}" style="color: #71c6dd;" >@{{ room.host.username }}</a></strong></span>
+        {% if request.user == room.host %}<span class="mx-1"><a style="color: #ffffff;" class="link-offset-2 link-underline link-underline-opacity-0" style="text-decoration: none; color:black" href="{% url 'update_room' room.id %}"><i class="fa-solid fa-pencil"></i></a></span>
+        <span class="mx-1"><a class="link-offset-2 link-underline link-underline-opacity-0" style="color: #ffffff;" style="text-decoration: none; color:black" href="{% url 'delete_room' room.id %}"><i class="fa-solid fa-trash"></i></a></span>{% endif %}
+        <span class="ms-auto" style="color: #fff;">{{ room.created | timesince }} ago</span>
+    </div>
+
+    <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'room' room.id %}" style="color: #fff; text-decoration: none;">{{ room.name }}</a></h5>
+        <p class="card-text" style="color: #fff;">{{ room }}...</p>
+    </div>
+    <div class="card-footer text-muted d-flex justify-content-between">
+        <span style="color: #fff;">{{ room.participants.all.count }} joined</span>
+        <span class="badge rounded-pill text-bg-secondary">{{room.topic.name}}</span>
+    </div>
+    
+</div>
+
+{% endfor %}
+

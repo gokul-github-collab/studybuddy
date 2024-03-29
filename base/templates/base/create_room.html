@@ -1,0 +1,52 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+
+Create Room
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class="container">
+  <div class="container mt-3" >
+    <div class="card" style="background-color: #696d97;" >
+      <div class="card-header" style="background-color: #696d97;" >
+        <h5 class="text-center" style="color: #fff;" >CREATE YOUR STUDY ROOM</h5>
+      </div>
+      <div class="card-body" style="background-color: #3f4156;"  >
+    <form method="POST" accept=""  >
+        {% csrf_token %}
+
+        <div class="mb-3" style="color: #696d97;">
+            <label style="color: #fff;"  for="room_topic">Enter a Topic</label>
+            <input required type="text" class="form-control" value="{{room.topic.name}}" name="topic" list="topic-list" style="background-color: #3f4156; color:#fff; " />
+            <datalist id="topic-list" >
+              <select id="room_topic">
+                {% for topic in topics %}
+                <option value="{{topic.name}}" class="">{{topic.name}}</option>
+                {% endfor %}
+              </select>
+            </datalist>
+        </div>
+        <div class="mb-3">
+            <label style="color: #fff;"  for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            <input type="{{ form.name.field_type }}" id="{{ form.name.id_for_label }}" name="name" class="form-control" style="background-color: #3f4156; color:#fff; " />
+        </div>
+        <div class="mb-3">
+            <label style="color: #fff;"  for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+            <textarea name='description' class="form-control" id="{{form.description.id_form_label}}" rows="3" style="background-color: #3f4156; color:#fff; " ></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-secondary" style="color: #fff;" >Submit</button>
+      </form>
+      </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
