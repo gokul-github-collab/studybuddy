@@ -1,23 +1,42 @@
 {% extends 'main.html' %}
-{% load crispy_forms_tags %}
-
 
 {% block title %}
-
-Create Room
+CREATE/UPDATE PROFILE
 {% endblock %}
-
 
 {% block content %}
-
 <div class="container">
-    <form method="POST" action="" enctype="multipart/form-data" >
-        {% csrf_token %}
-        {{form | crispy }}
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
+  <div class="container mt-3" >
+    <div class="card" style="background-color: #696d97;">
+      <div class="card-header"  style="background-color: #696d97;" >
+        <h5 class="text-center" style="color: #fff;" >EDIT PROFILE</h5>
+      </div>
+      <div class="card-body " style="background-color: #3f4156;" >
+  <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="mb-3">
+      <label style="color: #fff;"  for="avatar" class="form-label">Avatar</label>
+      <input style="background-color: #3f4156; color:#fff " type="file" class="form-control" value="" name="avatar" id="avatar">
+    </div>
+    <div class="mb-3">
+      <label style="color: #fff;"  for="name" class="form-label">Name</label>
+      <input style="background-color: #3f4156; color:#fff " type="text" class="form-control" value="{{ request.user.name}}"  name="name" id="name" placeholder="Enter name">
+    </div>
+    <div class="mb-3">
+      <label style="color: #fff;"  for="username" class="form-label">Username</label>
+      <input style="background-color: #3f4156; color:#fff " type="text" class="form-control" value="{{ request.user.username}}" name="username" id="username" placeholder="Enter username">
+    </div>
+    <div class="mb-3">
+      <label style="color: #fff;"  for="email" class="form-label">Email address</label>
+      <input style="background-color: #3f4156; color:#fff " type="email" class="form-control" value="{{ request.user.email}}"  name="email" id="email" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label style="color: #fff;"  for="bio" class="form-label">Bio</label>
+      <textarea  style="background-color: #3f4156; color:#fff " class="form-control" value="{{ request.user.bio}}"  name="bio" id="bio" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
 </div>
-
+</div></div>
+</div>
 {% endblock %}
-
-

@@ -4,7 +4,7 @@
   <div class="card-body ">
       <h6 class="card-title" style="color: #fff;"><img src="{{ message.user.avatar.url}}" style=" width: 40px; height: 40px; " class="rounded me-2" alt="..."> Host <a href="{% url 'user_profile' message.user.id %}" style="color: #71c6dd;">@{{ message.user.username }}</a></h6>
       <p style="color: #fff;" >{{ message.created | timesince }}</p>
-      <p class="card-text" style="color: #fff;">replied to "<a href="{% url 'room' message.room.id %}" style="color: #71c6dd;">{{ message.room.name | slice:":20" }}{%  if message.room.name|length > 20 %}...{% endif %}</a>"</p>
+      <p class="card-text" style="color: #fff;">replied to "<a href="{% url 'room' message.room.id %}" style="color: #71c6dd;">{{ message.room.name | slice:":15" }}{%  if message.room.name|length > 20 %}...{% endif %}</a>"</p>
       <div class="card" style="background-color: #2d2d39; color:#2d2d39;">
         <div class="card-body" style="background-color: #2d2d39;">
           <span style="color: #fff">{{ message.body|slice:":20" }}{% if message.body|length > 20 %}...{% endif %}</span>

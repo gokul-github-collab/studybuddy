@@ -7,7 +7,7 @@ Sign Up
 
 
 {% block content %}
-
+<!-- 
 <div class="container mt-3">
     <div class="card">
         <div class="card-header text-center">
@@ -20,6 +20,37 @@ Sign Up
                 {{ form | crispy }}
                 <p>Have an account? login <a href="{% url 'login' %}">here</a></p>
                 <button class="btn btn-success" type="submit">register</button>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="container mt-3">
+    <div class="card"style="background-color: #696d97;">
+        <div class="card-header"style="background-color: #696d97;">
+
+        </div>
+        <div class="card-body" style="background-color: #3f4156;" >
+            <form method="post">
+                {% csrf_token %}
+        
+                <label style="color: #fff;"  for="name">Name:</label>
+                <input  style="background-color: #3f4156;  color:#fff"   class="form-control"  type="text"  name="name" id="name" required><br>
+        
+                <label style="color: #fff;"  for="username">Username:</label>
+                <input  style="background-color: #3f4156; color:#fff "  class="form-control"  type="text" name="username" id="username" required><br>
+        
+                <label style="color: #fff;"  for="email">Email:</label>
+                <input  style="background-color: #3f4156; color:#fff "  class="form-control"  type="email" name="email" id="email" required><br>
+        
+                <label style="color: #fff;"  for="password1">Password:</label>
+                <input  style="background-color: #3f4156; color:#fff "  class="form-control"  type="password" name="password1" id="password1" required><br>
+        
+                <label style="color: #fff;"  for="password2">Confirm Password:</label>
+                <input  style="background-color: #3f4156; color:#fff "  class="form-control"  type="password" name="password2" id="password2" required><br>
+        
+                <button type="submit"  style="color: #fff;" class="btn btn-outline-secondary" >Register</button>
             </form>
         </div>
     </div>

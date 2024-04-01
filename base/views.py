@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 
@@ -40,14 +42,30 @@ def register(request):
     form = MyUserCreationForm()
 
     if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
+        name = request.POST['name']
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
 
-            return redirect('home')
-        
-    return render(request,  'base/sign_up.html', {'form': form})
+       
+        if password1 != password2:
+
+            return render(request, 'base/sign_up.html', {'error': 'Passwords do not match!'})
+
+        User = get_user_model()
+        user = User.objects.create(username=username, email=email, name=name)
+        user.password = make_password(password1)
+        user.save()
+
+        user = authenticate(request, email=email, password = password1)
+        login(request, user)
+
+        return redirect('home')
+
+    context = {}
+    return render(request, 'base/sign_up.html', context)
+
 
 
 def home(request):
@@ -56,7 +74,7 @@ def home(request):
                                 Q(name__icontains=q) |
         Q(description__icontains=q))
     topics = Topic.objects.all()
-    messages = Message.objects.all().order_by('-id')[:10]
+    messages = Message.objects.filter(Q(room__topic__name__icontains=q)).order_by('-id')[:10]
     return render(request, 'base/home.html', {"rooms": rooms, 'topics': topics, 'messages': messages})
 
 
@@ -141,18 +159,31 @@ def user_profile(request, pk):
 
     return render(request, 'base/user_profile.html', {'topics': topics, "ruser": ruser, "messages": messages, "rooms": rooms})
 
-
+@login_required(login_url='/home')
 def edit_profile(request, pk):
-    ruser = User.objects.get(id=pk)
+    user = request.user
+    form = UserForm(instance=user)
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        bio = request.POST.get('bio')
+        avatar = request.FILES.get('avatar') 
+        
 
-    user_form = UserForm(instance=ruser)
+        user.name = name
+        user.username = username
+        user.email = email
+        user.bio = bio
+        if avatar:
+            user.avatar = avatar
+        user.save()
+        
+        return redirect('home')  
+    else:
 
-    if request.method == "POST" and request.user == ruser:
-        user_form = UserForm(request.POST, request.FILES, instance=ruser)
+        form = UserForm(instance=user)
+    
 
-        if user_form.is_valid():
-            user_form.save()
-
-            return redirect('user_profile', pk=ruser.id)
-
-    return render(request, "base/edit_profile.html", {"form": user_form})
+    return render(request, "base/edit_profile.html", {"form": form})
